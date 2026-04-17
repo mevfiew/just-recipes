@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recipe · Just Recipes</title>
+<style>
+  :root {
+    --fg: #1a1a1a;
+    --fg-muted: #6b6b6b;
+    --line: #e5e5e5;
+    --bg: #fafaf7;
+    --accent: #FF6B6B;
+    --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, Cambria, Times, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: var(--serif); line-height: 1.65; }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  .topnav {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 16px 24px 0;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--fg-muted);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .topnav .brand { color: var(--accent); font-weight: 700; }
+  .topnav a { color: var(--fg-muted); text-decoration: none; }
+  .topnav a:hover { color: var(--fg); text-decoration: underline; }
+
+  h1 {
+    font-size: 2.6em; line-height: 1.15; margin: 0 0 8px;
+    font-weight: 700; letter-spacing: -0.01em;
+  }
+  .source-line { font-family: var(--sans); font-size: 13px; color: var(--fg-muted); margin-bottom: 24px; }
+  .source-line a { color: var(--fg-muted); }
+  .source-line a:hover { color: var(--fg); }
+
+  .hero {
+    width: 100%; max-height: 420px; object-fit: cover;
+    border-radius: 8px; margin: 0 0 28px; display: block;
+  }
+
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 0 0 32px;
+    font-family: var(--sans);
+  }
+  .meta-badge {
+    font-size: 12px; font-weight: 600;
+    padding: 5px 10px; border-radius: 14px;
+    background: #f0ede8; color: #444;
+  }
+  .meta-badge.accent { background: #FFE5E5; color: #C43030; }
+
+  .description {
+    font-size: 1.05em; color: var(--fg-muted);
+    margin: 0 0 32px; font-style: italic;
+    border-left: 3px solid var(--accent);
+    padding-left: 14px;
+  }
+
+  h2 {
+    font-family: var(--sans);
+    font-size: 0.95em; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--fg-muted);
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ingredients {
+    list-style: none; padding: 0; margin: 0;
+    columns: 2; column-gap: 28px;
+  }
+  .ingredients li {
+    padding: 8px 0;
+    break-inside: avoid;
+    border-bottom: 1px dotted var(--line);
+  }
+  @media (max-width: 600px) { .ingredients { columns: 1; } }
+
+  .instructions {
+    list-style: none; padding: 0; margin: 0;
+    counter-reset: step;
+  }
+  .instructions li {
+    counter-increment: step;
+    padding: 16px 0 16px 48px;
+    position: relative;
+    border-bottom: 1px solid var(--line);
+  }
+  .instructions li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0; top: 16px;
+    width: 32px; height: 32px;
+    background: var(--accent); color: #fff;
+    border-radius: 50%;
+    font-family: var(--sans);
+    font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .instructions li:last-child { border-bottom: none; }
+
+  .empty {
+    text-align: center; padding: 100px 20px;
+    color: var(--fg-muted); font-family: var(--sans);
+  }
+
+  @media print {
+    .topnav { display: none; }
+    body { background: #fff; }
+    main { padding-top: 20px; }
+    .hero { max-height: 280px; }
+  }
+</style>
+</head>
+<body>
+  <div class="topnav">
+    <span class="brand">Just Recipes</span>
+    <span>·</span>
+    <span id="nav-source"></span>
+  </div>
+  <main id="content"></main>
+  <script type="module" src="viewer.js"></script>
+</body>
+</html>
