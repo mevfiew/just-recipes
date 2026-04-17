@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 440px; max-height: 600px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #fafafa; color: #262626;
+    overflow: hidden; display: flex; flex-direction: column;
+  }
+
+  .header {
+    background: #fff; border-bottom: 1px solid #dbdbdb;
+    padding: 12px 14px 10px; position: sticky; top: 0; z-index: 10;
+  }
+  .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .brand h1 {
+    font-size: 15px; font-weight: 700;
+    background: linear-gradient(135deg, #FF6B6B 0%, #FFB347 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stats { font-size: 10px; color: #8e8e8e; letter-spacing: 0.2px; margin-top: 2px; }
+
+  .header-actions { display: flex; gap: 5px; }
+  .icon-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border-radius: 6px;
+    border: 1px solid #dbdbdb; background: #fff; cursor: pointer;
+    color: #262626; font-size: 13px; transition: all 0.15s;
+  }
+  .icon-btn:hover { background: #f0f0f0; }
+  .icon-btn.danger:hover { background: #fef2f2; border-color: #FF6B6B; color: #FF6B6B; }
+
+  .search-bar {
+    width: 100%; padding: 7px 10px;
+    border: 1px solid #dbdbdb; border-radius: 8px;
+    font-size: 12px; background: #efefef; outline: none;
+  }
+  .search-bar:focus { border-color: #a8a8a8; background: #fff; }
+
+  .content { padding: 10px; overflow-y: auto; flex: 1; min-height: 0; }
+
+  .detect-card {
+    background: #fff; border: 1px solid #dbdbdb; border-radius: 10px;
+    padding: 10px; display: flex; gap: 10px; align-items: center;
+    margin-bottom: 10px;
+  }
+  .detect-card img {
+    width: 52px; height: 52px; object-fit: cover; border-radius: 6px;
+    background: #eee; flex-shrink: 0;
+  }
+  .detect-info { flex: 1; min-width: 0; }
+  .detect-name {
+    font-size: 12px; font-weight: 600;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .detect-meta { font-size: 10px; color: #8e8e8e; margin-top: 2px; }
+  .save-btn {
+    background: #FF6B6B; border: none; border-radius: 8px;
+    color: #fff; font-weight: 600; font-size: 12px;
+    padding: 8px 12px; cursor: pointer; white-space: nowrap; flex-shrink: 0;
+  }
+  .save-btn:hover { background: #E55555; }
+  .save-btn.saved { background: #f0f0f0; color: #8e8e8e; cursor: default; }
+
+  .list { display: flex; flex-direction: column; gap: 8px; }
+
+  .card {
+    background: #fff; border: 1px solid #dbdbdb; border-radius: 10px;
+    padding: 10px; display: flex; gap: 10px; align-items: center;
+  }
+  .card:hover { border-color: #a8a8a8; }
+  .card img {
+    width: 64px; height: 64px; object-fit: cover; border-radius: 6px;
+    background: #eee; flex-shrink: 0; cursor: pointer;
+  }
+  .card-info { flex: 1; min-width: 0; cursor: pointer; }
+  .card-name {
+    font-size: 12px; font-weight: 600;
+    overflow: hidden; text-overflow: ellipsis;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  }
+  .card-badges { display: flex; gap: 5px; margin-top: 5px; flex-wrap: wrap; }
+  .badge {
+    font-size: 9px; font-weight: 600;
+    background: #f0f0f0; color: #555;
+    padding: 2px 6px; border-radius: 10px;
+  }
+  .card-actions { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+  .card-actions button {
+    border: none; background: transparent;
+    color: #8e8e8e; cursor: pointer;
+    font-size: 12px; padding: 4px 8px; border-radius: 4px;
+  }
+  .card-actions button:hover { background: #f0f0f0; color: #262626; }
+
+  .empty { text-align: center; padding: 40px 20px; color: #8e8e8e; }
+  .empty h2 { font-size: 14px; color: #262626; margin-bottom: 4px; font-weight: 600; }
+  .empty p { font-size: 12px; line-height: 1.5; }
+
+  .footer {
+    border-top: 1px solid #dbdbdb; background: #fff;
+    padding: 7px 14px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10px; color: #8e8e8e; flex-shrink: 0;
+  }
+  .footer-links { display: flex; gap: 10px; }
+  .footer a { color: #8e8e8e; text-decoration: none; }
+  .footer a:hover { color: #262626; text-decoration: underline; }
+  .footer .version { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; letter-spacing: 0.3px; }
+
+  .content::-webkit-scrollbar { width: 6px; }
+  .content::-webkit-scrollbar-thumb { background: #dbdbdb; border-radius: 3px; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-top">
+      <div class="brand">
+        <h1>Just Recipes</h1>
+        <div class="stats" id="stats">Loading...</div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="exportBtn" title="Export all as JSON">&#x2B07;</button>
+        <button class="icon-btn danger" id="clearBtn" title="Clear all saved recipes">&#x1F5D1;</button>
+      </div>
+    </div>
+    <input type="text" class="search-bar" id="searchInput" placeholder="Search name, ingredient, cuisine...">
+  </div>
+
+  <div class="content" id="content">
+    <div id="detect"></div>
+    <div class="list" id="list"></div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-links">
+      <a href="https://mevfiew.github.io/just-recipes/privacy-policy.html" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://github.com/mevfiew/just-recipes/issues/new" target="_blank" rel="noopener">Report issue</a>
+    </div>
+    <span class="version">v1.0.0</span>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
