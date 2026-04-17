@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test Recipe</title>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": "Layered Test Cake",
+  "author": { "@type": "Person", "name": "Test Chef" },
+  "description": "A recipe to test HowToSection > HowToStep nesting.",
+  "image": { "@type": "ImageObject", "url": "https://example.com/cake.jpg" },
+  "recipeYield": "8 servings",
+  "recipeCategory": "Dessert",
+  "recipeCuisine": "Test",
+  "keywords": "cake, test, chocolate",
+  "prepTime": "PT20M",
+  "cookTime": "PT1H",
+  "totalTime": "PT1H30M",
+  "recipeIngredient": [
+    "2 cups flour",
+    "1 cup sugar",
+    "200g chocolate"
+  ],
+  "recipeInstructions": [
+    {
+      "@type": "HowToSection",
+      "name": "For the base",
+      "itemListElement": [
+        { "@type": "HowToStep", "text": "Preheat oven to 180C." },
+        { "@type": "HowToStep", "text": "Mix flour and sugar in a bowl." }
+      ]
+    },
+    {
+      "@type": "HowToSection",
+      "name": "For the topping",
+      "itemListElement": [
+        { "@type": "HowToStep", "text": "Melt chocolate over a double boiler." },
+        { "@type": "HowToStep", "text": "Pour over cooled cake." }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<h1>Layered Test Cake</h1>
+</body>
+</html>
